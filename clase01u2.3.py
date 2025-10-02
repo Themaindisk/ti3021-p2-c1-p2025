@@ -12,7 +12,15 @@ class Atleta:
 
     @staticmethod
     def participar():
-        pass    
+        pass
+    
+    @property
+    def marca_personal(self):
+        return self.marca_personal
+    
+    @staticmethod
+    def disiplinas():
+        pass
 
     
         
