@@ -4,6 +4,19 @@ class Partcipante:
         self._edad = edad
         self._numero_inscripcion = numero_inscripcion
         
+    @staticmethod
+    def participar():
+        pass
+    
+    @property
+    def numero_inscripcion(self):
+        return self.numero_inscripcion
+    
+    @staticmethod
+    def nombre():
+        pass        
+        
+          
 class Atleta:
     def __init__(self, disciplinas:str, marca_personal:float, categoria:str):
         self._disciplinas = disciplinas
@@ -30,11 +43,37 @@ class Entrenador:
         self._plan_entrenamiento = plan_entrenamiento
         self._especialidades = especialidades
         
+    @staticmethod
+    def participar():
+        pass
+    
+    @property
+    def plan_entrenamineto(self):
+        return self.plan_entrenamineto
+    
+    @staticmethod
+    def equipo():
+        pass        
+        
 class Juez:
-     def __init__(self, reglamento:str, certificado:bool, experiencia:int):
+    def __init__(self, reglamento:str, certificado:bool, experiencia:int):
         self._reglamento = reglamento
         self._certificado = certificado
         self._experiencia = experiencia
+        
+    @staticmethod
+    def participar():
+        pass
+    
+    @property
+    def certificado(self):
+        return self.certificado
+    
+    @staticmethod
+    def experiencia():
+        pass        
+        
+   
         
         
         
