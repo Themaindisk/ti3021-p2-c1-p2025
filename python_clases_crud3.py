@@ -97,6 +97,46 @@ def update_persona():
                 """
             )
             opcion = input("¿Qué dato quieres modificar?")
+            if opcion == "1":
+                rut: str = input("ingresa el rut de la persona: ")
+                if persona_existe(persona): 
+                    print(f"la persona con el rut {persona.rut} ya existe, intente con otro")
+                persona.rut = rut 
+                print("rut modificado exitosamente")   
+                
+            
+            
+            elif opcion =="2":
+                nombres: str = input("Ingresa los nombres de la persona: ")
+                personas.nombres=nombres
+                print("nombres modificados exitosamente")
+        
+        
+            elif opcion =="3":
+                apellidos : str = input("Ingresa los apellidos de la persona: ")
+                personas.apellidos = apellidos
+                print("apellidos modificados correctamente")
+        
+        
+            elif opcion =="4":
+                dia_nacimiento : int = (input("Ingresa el dia de nacimiento de la persona: "))
+                persona.dia_nacimiento = dia_nacimiento
+                print("dia_nacimiento modificado corretamente")
+                pass
+        
+        
+            elif opcion =="5":
+                pass
+        
+        
+            elif opcion =="6":
+                pass
+        
+            
+            elif opcion =="0":
+                break
+            else:
+                break
 
 
 def delete_persona():
