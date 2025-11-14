@@ -1,57 +1,73 @@
-import oracledb 
+import oracledb
 import os
-from dotenv  import load_dotenv   
-
+from dotenv import load_dotenv
 load_dotenv()
-  
-username = os.getenv ("ORACLE_USER") 
-dsn = os.getenv("ORACLE_DSN") 
-password = os.getenv("ORACLE_PASSWORD")  
+
+username = os.getenv("ORACLE_USER")
+dsn = os.getenv("ORACLE_DSN")
+password = os.getenv("ORACLE_PASSWORD")
+
 
 def get_connection():
-    return oracledb.connect(user=username, password=password, dsn=dsn) 
+    return oracledb.connect(user=username, password=password, dsn=dsn)
 
-def create_table() -> None:
-    ddl = (         
-    "CREATE TABLE NAJA_personas ("         
-    "rut VARCHAR2(50) PRIMARY KEY,"
-    "nombres VARCHAR2(200),"
-    "apellidos VARCHAR2(200),"
-    "fecha_nacimiento DATE,"
-    "cod_area VARCHAR2(20),"
-    "numero_telefono VARCHAR2(50)"
-    ")"
-    )     
+
+def create_schema(query):
     try:
-        with get_connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(ddl)
-                print("Tabla 'personas' creada.")
-            conn.commit()
-    except oracledb.DatabaseError as e:
-        err = e
-        print(f"No se pudo crear la tabla: {err}") 
+        with get_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+                print(f"Tabla creada \n {query}")
+    except oracledb.DatabaseError as error:
+        print(f"No se pudo crear la tabla: {error}")
+
+tables = [
+    (
+        "CREATE TABLE  participante ("
+        "id_numero_inscripcion INTEGER PRIMARY KEY,"
+        "nombre VARCHAR(60),"
+        "edad INTEGER(60)" 
+        ");"
         
-create_table()
-from datetime import datetime
-def create_persona(rut, nombres, apellidos=None, fecha_nacimiento=None, cod_area=None, numero_telefono=None):
-    sql = (
-        "INSERT INTO personas (rut, nombres, apellidos, fecha_nacimiento, cod_area, numero_telefono) "
-        "VALUES (:rut, :nombres, :apellidos, :fecha_nacimiento, :cod_area, :numero_telefono)"
-        )
-    bind_fecha = None
-    if fecha_nacimiento:
-        bind_fecha = datetime.strptime(fecha_nacimiento, "%Y-%m-%d")
-        with get_connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(sql, {
-                "rut": rut,
-                "nombres": nombres,
-                "apellidos": apellidos,
-                "fecha_nacimiento": bind_fecha,
-                "cod_area": cod_area,
-                "numero_telefono": numero_telefono,
-                })
-        conn.commit()
-    print(f"Persona con RUT={rut} creada.") 
-    
+    )
+    (
+        "CREATE TABLE atleta ("
+        "id_diciplinas VARCHAR(70),"
+        "marca_personal FLOAT(100),"
+        "categoria VARCHAR(70)"
+        ");"
+        
+    )
+    (
+        "CREATE TABLE ENTRENADOR ("
+        "equipo VARCHAR(70),"
+        "plan_entrenamiento VARCHAR(70),"
+        "especialidades VARCHAR(70)"
+        ");"
+        
+    ) 
+    (
+        "CREATE TABLE JUEZ ("
+        "reglamento VARCHAR(4000),"
+        "certificado_valido VARCHAR(100),"
+        "experiencia INTEGER(300)"
+        ");"
+        
+        
+        
+        
+        
+        
+        
+    )    
+        
+        
+        
+        
+        
+        
+    )
+]
+
+for query in tables:
+    create_schema(query)
